@@ -77,8 +77,11 @@ const StatRow = styled.div`
 const Actions = styled("div")({
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   gap: "12px",
-  margin: "auto"
+  flexWrap: "wrap",
+  width: "100%",
+  marginTop: "8px",
 });
 
 
