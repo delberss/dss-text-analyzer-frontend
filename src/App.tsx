@@ -82,16 +82,9 @@ const Actions = styled("div")({
 
 export default function App() {
   const [text, setText] = useState("");
+  const [stats, setStats] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
 
-  const stats = {
-    letters: "-",
-    lettersNoSpace: "-",
-    words: "-",
-    sentences: "-",
-    lines: "-",
-    avgWordsPerSentence: "-",
-    density: "-",
-  };
 
   function handleClear() {
     setText("");
@@ -127,10 +120,9 @@ export default function App() {
 
               <Button
                 variant="contained"
-                onClick={() => {
-                }}
+                disabled={loading}
               >
-                Analisar
+                {loading ? "Analisando..." : "Analisar"}
               </Button>
             </Actions>
           </TextCard>
@@ -144,37 +136,37 @@ export default function App() {
 
             <StatRow>
               <span>Letras:</span>
-              <strong>{stats.letters}</strong>
+              <strong>{stats?.letters ?? "-"}</strong>
             </StatRow>
 
             <StatRow>
               <span>Letras (sem espaços):</span>
-              <strong>{stats.lettersNoSpace}</strong>
+              <strong>{stats?.letters_no_space ?? "-"}</strong>
             </StatRow>
 
             <StatRow>
               <span>Palavras:</span>
-              <strong>{stats.words}</strong>
+              <strong>{stats?.words ?? "-"}</strong>
             </StatRow>
 
             <StatRow>
               <span>Frases (≈):</span>
-              <strong>{stats.sentences}</strong>
+              <strong>{stats?.sentences ?? "-"}</strong>
             </StatRow>
 
             <StatRow>
               <span>Linhas:</span>
-              <strong>{stats.lines}</strong>
+              <strong>{stats?.lines ?? "-"}</strong>
             </StatRow>
 
             <StatRow>
               <span>Média palavras/frase:</span>
-              <strong>{stats.avgWordsPerSentence}</strong>
+              <strong>{stats?.avg_words_per_sentence ?? "-"}</strong>
             </StatRow>
 
             <StatRow style={{ borderBottom: "none" }}>
               <span>Densidade (chars/word):</span>
-              <strong>{stats.density}</strong>
+              <strong>{stats?.density ?? "-"}</strong>
             </StatRow>
           </PanelCard>
         </Grid>
