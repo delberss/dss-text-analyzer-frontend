@@ -3,7 +3,7 @@ import { Grid, Typography, Button } from "@mui/material";
 import styled from "styled-components";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
-const API_URL = "http://localhost:8000"; 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Page = styled(Grid)`
   min-height: 100vh;
