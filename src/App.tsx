@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Grid, Typography, Button } from "@mui/material";
 import styled from "styled-components";
 
+const API_URL = "http://localhost:8000"; 
+
 const Page = styled(Grid)`
   min-height: 100vh;
   padding: 24px;
@@ -85,9 +87,34 @@ export default function App() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
+  async function handleAnalyze() {
+    if (!text.trim()) return;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_URL}/analyze`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Erro ao analisar o texto.");
+      }
+
+      const data = await res.json();
+      setStats(data);
+    } catch (err) {
+      alert("Erro ao conectar ao servidor.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   function handleClear() {
     setText("");
+    setStats(null);
   }
 
   return (
@@ -121,6 +148,7 @@ export default function App() {
               <Button
                 variant="contained"
                 disabled={loading}
+                onClick={handleAnalyze}
               >
                 {loading ? "Analisando..." : "Analisar"}
               </Button>
