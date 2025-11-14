@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Grid, Typography, Button } from "@mui/material";
 import styled from "styled-components";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 const API_URL = "http://localhost:8000"; 
 
@@ -141,6 +142,21 @@ export default function App() {
             />
 
             <Actions>
+              <Button
+                variant="outlined"
+                startIcon={<ContentPasteIcon />}
+                onClick={async () => {
+                  try {
+                    const clipboardText = await navigator.clipboard.readText();
+                    setText(clipboardText);
+                  } catch (err) {
+                    alert("Não foi possível acessar a área de transferência.");
+                  }
+                }}
+              >
+                Colar
+              </Button>
+
               <Button variant="outlined" onClick={handleClear}>
                 Limpar
               </Button>
